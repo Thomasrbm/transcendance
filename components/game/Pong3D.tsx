@@ -120,8 +120,8 @@ export default function Pong3D({
       );
       MalusSystemRef.current.startMalusSystem();
     }
-    engine.runRenderLoop(() => scene.render());
-    window.addEventListener("resize", () => engine.resize());
+    engine.runRenderLoop(() => scene.render()); // redessine la scene a chaque fois que la scene est modif
+    window.addEventListener("resize", () => engine.resize()); // ajuste rendu selon taille fenetre
     // a la fin on clean tout.
     return () => {
       cleanupPhysic();
@@ -135,6 +135,8 @@ export default function Pong3D({
 
 
 
+
+  // Detecte changement du score
   useEffect(() => {
     if (
       score.player1 !== prevScore.current.player1 ||
@@ -154,10 +156,17 @@ export default function Pong3D({
     }
   }, [score]);
 
+
+
+
+  // met a jour ref clavier 
   useEffect(() => {
     controlsRef.current = controls;
   }, [controls]);
 
+
+
+  // servira pour pause apres dans L UI
   const handleSetIsPaused = (paused: boolean) => {
     setIsPaused(paused);
   };
@@ -165,13 +174,15 @@ export default function Pong3D({
 
 
    
-
+  // remet cam orrigne on clique 
   useEffect(() => {
     if (cameraRef.current) {
       cameraRef.current.setPosition(new Vector3(35, 35, 0));
       cameraRef.current.setTarget(Vector3.Zero());
     }
   }, [resetCamFlag]);
+
+
 
   useEffect(() => {
     if (gameObjectsRef.current) {
