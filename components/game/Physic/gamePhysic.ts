@@ -13,12 +13,12 @@ import {
   BUMPER_MID_RIGHT,       // ex. +4
 } from "./constants";
 
-import { serve as serveBall } from "./paddle/serve";
+import { serve as serveBall } from "./movements/serve";
 import { startCountdown } from "./countdown";
 import { handleScoring } from "./collisions/scoring";
 import { registerInputListeners } from "./input";
-import { movePaddles } from "./paddle/paddleMovement";
-import { updateMiniPaddle } from "./paddle/miniPaddleLogic";
+import { movePaddles } from "./movements/paddleMovement";
+import { updateMiniPaddle } from "./movements/miniPaddleLogic";
 import { handleCollisions } from "./collisions/handleCollisions";
 import type { GameRefs, GameObjects } from "../gameTypes";
 
@@ -170,6 +170,19 @@ export const initgamePhysic = (
     );
   };
 
+
+
+
+
+
+
+
+
+
+
+
+
+// observe le rendu JUSTE avant l image. verif si tout va bien JUSTE AVANT LE RENDU
   scene.onBeforeRenderObservable.add(() => {
     if (
       !gameRefs.isPaused ||
@@ -333,9 +346,24 @@ export const initgamePhysic = (
 
   });
 
+
+
+
+
+
+
+
+
+
   startCountdownWrapper(5, safeSetIsPaused, gameRefs.setCountdown, () =>
     serve(Math.random() > 0.5 ? "player1" : "player2")
   );
+
+
+
+
+
+
 
   return () => {
     unregisterInputs();

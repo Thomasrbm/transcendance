@@ -183,7 +183,7 @@ export default function Pong3D({
   }, [resetCamFlag]);
 
 
-
+  // couleur paddle in game maj 
   useEffect(() => {
     if (gameObjectsRef.current) {
       const { p1Mat, p2Mat } = gameObjectsRef.current;
@@ -192,6 +192,8 @@ export default function Pong3D({
     }
   }, [paddle1Color, paddle2Color]);
 
+
+  // lancera le son victoire (avec bon volume)
   useEffect(() => {
     if (winner && (volumeRef.current ?? volume) > 0) {
       const applause = new window.Audio("/sounds/Applause  Sound Effect.mp3");
@@ -200,13 +202,19 @@ export default function Pong3D({
     }
   }, [winner, volume]);
 
+
+
+  // son des hit  synchro au volume 
   useEffect(() => {
     if (allHitSounds.current.length > 0) {
       allHitSounds.current.forEach((sound: Sound) => {
-        sound.setVolume(volume);
+        sound.volume = volume;
       });
     }
   }, [volume]);
+
+
+
 
   // RENDU UI CASE SUR LA PARTIE DU JEU (case des touche et barre stamina / chargement malus)
   return (
